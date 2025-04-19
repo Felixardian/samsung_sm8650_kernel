@@ -1,0 +1,111 @@
+name: Build KernelSU-LKM
+permissions:
+  contents: write
+  actions: write
+
+on:
+  workflow_call:
+    inputs:
+      model:
+        required: true
+        type: string
+        default: sansungLKM
+      soc:
+        required: true
+        type: string
+        default: sm8650
+      branch:
+        required: true
+        type: string
+        default: main
+      android_version:
+        required: true
+        type: string
+        default: android14
+      kernel_version:
+        required: true
+        type: string
+        default: 6.1
+
+jobs:
+  build-kernel-samsung-LKMkernel:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: 8192
+          temp-reserve-mb: 2048
+          swap-size-mb: 8192
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+
+      - name: Install Dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y clang llvm lld git zip build-essential xz-utils bison flex libz-dev libssl-dev libelf-dev bc cpio python3 pahole
+
+      - name: Install Repo and Python
+        run: |
+          sudo apt update
+          sudo apt install repo python3 python-is-python3
+
+      - name: Set CONFIG Environment Variable
+        run: |
+          CONFIG="${{ inputs.model }}"
+          echo "CONFIG=$CONFIG" >> $GITHUB_ENV
+          echo "CONFIG set to: $CONFIG"
+
+      - name: Clone AnyKernel3 and Other Dependencies
+        run: |
+          echo "Cloning AnyKernel3 and other dependencies..."
+          
+          ANYKERNEL_BRANCH="main"
+
+          # Debug print the branches
+          echo "Using branch for AnyKernel3: $ANYKERNEL_BRANCH"
+
+          # Clone repositories using the branch names
+          git clone https://github.com/Felixardian/AnyKernel3.git -b "$ANYKERNEL_BRANCH"
+
+      - name: Initialize and Sync Kernel Source
+        run: |
+          echo "Creating folder for configuration: $CONFIG..."
+          mkdir -p "$CONFIG"
+          cd "$CONFIG"
+          echo "Cloning kernel source..."
+          git clone --branch ${{ inputs.branch }} --single-branch https://github.com/Felixardian/samsung_kernel_sm8650.git .
+          git --version
+          git status
+
+      - name: Make build.sh Executable
+        run: |
+          echo "Setting execute permission on build.sh..."
+          chmod +x "$CONFIG/build.sh"
+
+      - name: Build the Kernel
+        run: |
+          echo "Building the kernel..."
+          cd "$CONFIG"
+          ./build.sh
+
+      - name: Prepare AnyKernel3 Folder
+        run: |
+          mkdir -p AnyKernel3
+          cp "$CONFIG/out/arch/arm64/boot/Image" AnyKernel3/zImage
+
+      - name: Create ZIP Files for Different Formats
+        run: |
+          cd AnyKernel3
+          ZIP_NAME="${{ inputs.model }}_${{ inputs.android_version }}_${{ inputs.kernel_version }}_LKM.zip"
+          zip -r "../$ZIP_NAME" .
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: kernel-${{ env.CONFIG }}
+          path: |
+            *.zip
