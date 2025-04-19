@@ -9,23 +9,18 @@ on:
       model:
         required: true
         type: string
-        default: sansungLKM
       soc:
         required: true
         type: string
-        default: sm8650
       branch:
         required: true
         type: string
-        default: main
       android_version:
         required: true
         type: string
-        default: android14
       kernel_version:
         required: true
         type: string
-        default: 6.1
 
 jobs:
   build-kernel-samsung-LKMkernel:
