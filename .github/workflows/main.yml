@@ -1,0 +1,21 @@
+name: Trigger Other Workflows
+
+on:
+  push:
+    branches:
+      - main  # 你可以选择任何分支进行触发
+  workflow_dispatch:
+
+jobs:
+  trigger_build_and_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger build workflow
+        uses: ./.github/workflows/build.yml
+
+          # 如果 build.yml 中需要传递参数，可以在这里定义
+
+      - name: Trigger test workflow
+        uses: ./.github/workflows/test.yml
+
+          # 如果 test.yml 中需要传递参数，可以在这里定义
