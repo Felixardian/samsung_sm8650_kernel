@@ -23,7 +23,7 @@ on:
         type: string
 
 jobs:
-  build-kernel-samsung-kernelsuNext-MKSU:
+  build-kernel-samsung-kernelsu-MKSU:
     runs-on: ubuntu-latest
 
     steps:
@@ -100,7 +100,7 @@ jobs:
           cd ./KernelSU
           echo "Applying MKSU SUSFS patches..."
           cp ../../kernel_patches/mksu/0002-kernel-patch-susfs-v1.5.5-to-mKernelSU.patch ./
-          patch -p1 --forward < 0002-kernel-patch-susfs-v1.5.5-to-mKernelSU.patch || true
+          patch -p1 -F 3 < 0002-kernel-patch-susfs-v1.5.5-to-mKernelSU.patch || true
 
           cd ../
           patch -p1 -F 3 < 50_add_susfs_in_gki-${{ inputs.android_version }}-${{ inputs.kernel_version }}.patch || 
