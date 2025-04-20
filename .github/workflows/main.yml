@@ -31,7 +31,7 @@ jobs:
     env:
       REPO_OWNER: Felixardian
       REPO_NAME: Samsung_KernelSU_SUSFS
-      RELEASE_NAME: "*TEST BUILD* Samsung Kernels With KernelSU Next & SUSFS v1.5.5 *TEST BUILD*"
+      RELEASE_NAME: "*BUILD* Samsung Kernels With KernelSU Next & SUSFS v1.5.5 *BUILD*"
       RELEASE_NOTES: |
         This release contains KernelSU Next and SUSFS v1.5.5
         
@@ -89,7 +89,7 @@ jobs:
         uses: actions/create-release@v1
         with:
           tag_name: ${{ env.NEW_TAG }}
-          prerelease: true
+          prerelease: false
           release_name: ${{ env.RELEASE_NAME }}
           body: ${{ env.RELEASE_NOTES }}
         env:
