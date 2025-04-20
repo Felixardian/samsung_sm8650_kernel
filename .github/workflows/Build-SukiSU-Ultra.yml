@@ -157,7 +157,7 @@ jobs:
       - name: Create ZIP Files for Different Formats
         run: |
           cd AnyKernel3
-          ZIP_NAME="${{ inputs.model }}_${{ inputs.android_version }}_${{ inputs.kernel_version }}_Next_SUSFS.zip"
+          ZIP_NAME="${{ inputs.model }}_${{ inputs.android_version }}_${{ inputs.kernel_version }}_SukiSU_Ultra_SUSFS.zip"
           zip -r "../$ZIP_NAME" .
 
       - name: Upload Build Artifacts
