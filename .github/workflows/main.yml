@@ -18,7 +18,7 @@ jobs:
     uses: ./.github/workflows/Build-KernelSU-next.yml
     secrets: inherit
     with:
-      model: "samsung24u"
+      model: "samsung24unext"
       soc: "pineapple"
       branch: "main"
       android_version: "android14"
@@ -28,7 +28,7 @@ jobs:
     uses: ./.github/workflows/KernelSU-LKM.yml
     secrets: inherit
     with:
-      model: "samsung24u"
+      model: "samsung24ulkm"
       soc: "pineapple"
       branch: "main"
       android_version: "android14"
@@ -38,7 +38,7 @@ jobs:
      uses: ./.github/workflows/Build-SukiSU-Ultra.yml
      secrets: inherit
      with:
-      model: "samsung24u"
+      model: "samsung24usuki"
       soc: "pineapple"
       branch: "main"
       android_version: "android14"
