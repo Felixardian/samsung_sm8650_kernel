@@ -61,18 +61,26 @@ build-SukiSU-Ultrakernel-24u:
     env:
       REPO_OWNER: Felixardian
       REPO_NAME: Samsung_KernelSU_SUSFS
-      RELEASE_NAME: "*BUILD* Samsung Kernels With KernelSU Next & SUSFS v1.5.5 *BUILD*"
+      RELEASE_NAME: "*BUILD* Samsung Kernels With & SUSFS v1.5.5 *BUILD*"
       RELEASE_NOTES: |
-        This release contains KernelSU Next and SUSFS v1.5.5
+        This release contains KernelSU and SUSFS v1.5.5
         
         Module: 
         -> https://github.com/sidex15/ksu_module_susfs
         
-        Non-Official Managers:
+        KernelSUNext Managers:
         -> https://github.com/KernelSU-Next/KernelSU-Next
+
+        MKSU Managers:
+        -> https://github.com/5ec1cff/KernelSU
+
+        SukiSU-Ultra Managers:
+        -> https://github.com/ShirkNeko/SukiSU-Ultra
         
         Features:
         [+] KernelSU-Next
+        [+] SukiSU-Ultra
+        [+] MagicKernelSU
         [+] SUSFS v1.5.5
 
     steps:
