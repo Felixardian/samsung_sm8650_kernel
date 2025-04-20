@@ -34,7 +34,7 @@ jobs:
       android_version: "android14"
       kernel_version: "6.1"
 
-build-kernel-24uMSKU:
+  build-kernel-24uMSKU:
     uses: ./.github/workflows/Build-MKSU.yml
     secrets: inherit
     with:
@@ -44,10 +44,10 @@ build-kernel-24uMSKU:
       android_version: "android14"
       kernel_version: "6.1"
 
-build-SukiSU-Ultrakernel-24u:
-    uses: ./.github/workflows/Build-SukiSU-Ultra.yml
-    secrets: inherit
-    with:
+  build-SukiSU-Ultrakernel-24u:
+     uses: ./.github/workflows/Build-SukiSU-Ultra.yml
+     secrets: inherit
+     with:
       model: "samsung24u"
       soc: "pineapple"
       branch: "main"
