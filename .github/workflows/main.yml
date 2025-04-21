@@ -43,6 +43,16 @@ jobs:
       branch: "main"
       android_version: "android14"
       kernel_version: "6.1"
+      
+  build-kernelsu-susfs24u:
+     uses: ./.github/workflows/build-kernelsu-susfs.yml
+     secrets: inherit
+     with:
+      model: "samsung24ukernelsu"
+      soc: "pineapple"
+      branch: "main"
+      android_version: "android14"
+      kernel_version: "6.1"
 
   trigger-release:
     runs-on: ubuntu-latest
