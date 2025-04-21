@@ -113,7 +113,6 @@ jobs:
           echo "Adding configuration settings to pineapple_gki_defconfig..."
           echo "CONFIG_KSU=y" >> ./arch/arm64/configs/pineapple_gki_defconfig
           echo "CONFIG_KPM=y" >> ./arch/arm64/configs/pineapple_gki_defconfig
-          echo "CONFIG_KALLSYMS=y" >> ./arch/arm64/configs/pineapple_gki_defconfig
           echo "CONFIG_KSU_MANUAL_HOOK=y" >> ./arch/arm64/configs/pineapple_gki_defconfig
           echo "CONFIG_KSU_SUSFS=y" >> ./arch/arm64/configs/pineapple_gki_defconfig
           echo "CONFIG_KSU_SUSFS_HAS_MAGIC_MOUNT=y" >> ./arch/arm64/configs/pineapple_gki_defconfig
