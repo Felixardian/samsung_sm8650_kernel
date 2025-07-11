@@ -54,19 +54,10 @@ jobs:
       android_version: "android14"
       kernel_version: "6.1"
 
-  build-MKSUkernelSUSFS-24u:
-     uses: ./.github/workflows/BuildMKSU.yml
-     secrets: inherit
-     with:
-      model: "samsung24uMKSU"
-      soc: "pineapple"
-      branch: "main"
-      android_version: "android14"
-      kernel_version: "6.1"
 
   trigger-release:
     runs-on: ubuntu-latest
-    needs: [build-kernel-24unext, build-kernel-24uLKM, build-SukiSU-Ultrakernel-24u, build-kernelsu-susfs24u, build-MKSUkernelSUSFS-24u]
+    needs: [build-kernel-24unext, build-kernel-24uLKM, build-SukiSU-Ultrakernel-24u, build-kernelsu-susfs24u]
     if: ${{ inputs.make_release }}
     env:
       REPO_OWNER: Felixardian
