@@ -98,32 +98,16 @@ jobs:
 
           cd ./KernelSU-Next
           echo "Applying next SUSFS patches..."
-              cp ../../susfs4ksu/kernel_patches/KernelSU/10_enable_susfs_for_ksu.patch ./
-              patch -p1 -F 3 < 10_enable_susfs_for_ksu.patch || true
-              
-              cp ../../kernel_patches/next/susfs_fix_patches/v1.5.9/fix_apk_sign.c.patch ./
-              patch -p1 -F 3 < fix_apk_sign.c.patch
-              
-              cp ../../kernel_patches/next/susfs_fix_patches/v1.5.9/fix_core_hook.c.patch ./
-              patch -p1 -F 3 < fix_core_hook.c.patch
-              
-              cp ../../kernel_patches/next/susfs_fix_patches/v1.5.9/fix_selinux.c.patch ./
-              patch -p1 -F 3 < fix_selinux.c.patch
-              
-              cp ../../kernel_patches/next/susfs_fix_patches/v1.5.9/fix_ksud.c.patch ./
-              patch -p1 -F 3 < fix_ksud.c.patch
-
-              cp ../../kernel_patches/next/susfs_fix_patches/v1.5.9/fix_rules.c.patch ./
-              patch -p1 -F 3 < fix_rules.c.patch
-
+          cp "../../../kernel_patches/next/0001-kernel-implement-susfs-v1.5.8-KernelSU-Next-v1.0.8.patch" "./ksun_susfs_latest.patch"
+          patch -p1 --forward < ksun_susfs_latest.patch || true
           cd ../
           patch -p1 -F 3 < 50_add_susfs_in_gki-${{ inputs.android_version }}-${{ inputs.kernel_version }}.patch || true
 
       - name: Apply KSU Hooks
         run: |
           cd "$CONFIG"
-          cp ../kernel_patches/next/syscall_hooks.patch ./
-          patch -p1 --fuzz=3 < ./syscall_hooks.patch
+          cp ../../../kernel_patches/next/scope_min_manual_hooks_v1.4.patch ./manual_hooks.patch
+          patch -p1 --fuzz=3 < ./manual_hooks.patch
 
       - name: Add SUSFS Configuration Settings
         run: |
